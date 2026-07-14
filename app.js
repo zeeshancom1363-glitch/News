@@ -7,9 +7,9 @@
 
     // ── Configuration ──
     const CONFIG = {
-        // GNews API (free tier: 100 requests/day)
-        API_BASE: 'https://gnews.io/api/v4',
-        API_KEY: '', // User must add their own key
+        // NewsAPI.org
+        API_BASE: 'https://newsapi.org/v2',
+        API_KEY: '8978511fa99345df8874cede50c83294',
         MAX_ARTICLES: 30,
         ARTICLES_PER_PAGE: 9,
         PLACEHOLDER_IMG: 'https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=800&q=80',
@@ -302,11 +302,11 @@
         try {
             let url;
             if (query) {
-                url = `${CONFIG.API_BASE}/search?q=${encodeURIComponent(query)}&lang=en&max=${CONFIG.MAX_ARTICLES}&apikey=${CONFIG.API_KEY}`;
+                url = `${CONFIG.API_BASE}/everything?q=${encodeURIComponent(query)}&language=en&pageSize=${CONFIG.MAX_ARTICLES}&apiKey=${CONFIG.API_KEY}`;
             } else {
-                const topicMap = {
-                    general: 'breaking-news',
-                    world: 'world',
+                const categoryMap = {
+                    general: 'general',
+                    world: 'general',
                     business: 'business',
                     technology: 'technology',
                     entertainment: 'entertainment',
@@ -314,8 +314,8 @@
                     science: 'science',
                     health: 'health',
                 };
-                const topic = topicMap[category] || 'breaking-news';
-                url = `${CONFIG.API_BASE}/top-headlines?topic=${topic}&lang=en&max=${CONFIG.MAX_ARTICLES}&apikey=${CONFIG.API_KEY}`;
+                const cat = categoryMap[category] || 'general';
+                url = `${CONFIG.API_BASE}/top-headlines?category=${cat}&language=en&country=us&pageSize=${CONFIG.MAX_ARTICLES}&apiKey=${CONFIG.API_KEY}`;
             }
 
             const res = await fetch(url);
@@ -365,7 +365,7 @@
 
         DOM.heroGrid.innerHTML = heroArticles.map((article, i) => `
             <a href="${escapeHtml(article.url)}" data-index="${i}" class="hero-card" style="animation-delay: ${i * 0.15}s">
-                <img class="hero-img" src="${article.image || CONFIG.PLACEHOLDER_IMG}" alt="${escapeHtml(article.title)}" loading="${i === 0 ? 'eager' : 'lazy'}" onerror="this.src='${CONFIG.PLACEHOLDER_IMG}'">
+                <img class="hero-img" src="${article.image || article.urlToImage || CONFIG.PLACEHOLDER_IMG}" alt="${escapeHtml(article.title)}" loading="${i === 0 ? 'eager' : 'lazy'}" onerror="this.src='${CONFIG.PLACEHOLDER_IMG}'">
                 <div class="hero-overlay">
                     <span class="hero-category">${escapeHtml(article.source?.name || 'News')}</span>
                     <h2 class="hero-title">${escapeHtml(article.title)}</h2>
@@ -399,7 +399,7 @@
 
             card.innerHTML = `
                 <div class="card-image-wrapper">
-                    <img class="card-image" src="${article.image || CONFIG.PLACEHOLDER_IMG}" alt="${escapeHtml(article.title)}" loading="lazy" onerror="this.src='${CONFIG.PLACEHOLDER_IMG}'">
+                    <img class="card-image" src="${article.image || article.urlToImage || CONFIG.PLACEHOLDER_IMG}" alt="${escapeHtml(article.title)}" loading="lazy" onerror="this.src='${CONFIG.PLACEHOLDER_IMG}'">
                     <span class="card-badge">${escapeHtml(state.currentCategory)}</span>
                 </div>
                 <div class="card-body">
@@ -592,7 +592,7 @@
             const article = state.articles[index];
             if (!article) return;
 
-            DOM.modalImg.src = article.image || CONFIG.PLACEHOLDER_IMG;
+            DOM.modalImg.src = article.image || article.urlToImage || CONFIG.PLACEHOLDER_IMG;
             DOM.modalImg.onerror = () => { DOM.modalImg.src = CONFIG.PLACEHOLDER_IMG; };
             DOM.modalSource.textContent = article.source?.name || 'Unknown';
             DOM.modalTime.textContent = timeAgo(article.publishedAt);
