@@ -233,6 +233,29 @@
         </svg>
     </button>
 
+    <!-- Article Detail Modal -->
+    <div class="modal-overlay" id="articleModal" style="display: none;">
+        <div class="modal-card">
+            <button class="close-modal" id="closeArticleModal" aria-label="Close modal">&times;</button>
+            <div class="modal-card-img-wrapper">
+                <img src="" id="modalImg" alt="">
+            </div>
+            <div class="modal-card-body">
+                <div class="modal-meta">
+                    <span class="modal-source" id="modalSource">Source</span>
+                    <span class="modal-dot">•</span>
+                    <span class="modal-time" id="modalTime">Time</span>
+                </div>
+                <h2 class="modal-title" id="modalTitle">Title</h2>
+                <div class="modal-content-text" id="modalContent">Content</div>
+            </div>
+            <div class="modal-card-footer">
+                <a href="" target="_blank" rel="noopener noreferrer" id="modalOriginalLink"
+                    class="original-link-btn">Read original story →</a>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 
