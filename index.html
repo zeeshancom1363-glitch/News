@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseNews — Everyday Breaking News</title>
+    <meta name="description"
+        content="Stay updated with the latest breaking news from around the world. PulseNews delivers real-time headlines across technology, business, sports, entertainment, and more.">
+    <meta name="keywords" content="breaking news, daily news, world news, headlines, live news">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Breaking News Ticker -->
+    <div class="ticker-bar" id="tickerBar">
+        <span class="ticker-label">🔴 BREAKING</span>
+        <div class="ticker-track">
+            <div class="ticker-content" id="tickerContent">
+                Loading latest headlines...
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <h1 class="logo-text">Pulse<span>News</span></h1>
+            </div>
+            <nav class="nav" id="mainNav">
+                <button class="nav-link active" data-category="general" id="nav-general">General</button>
+                <button class="nav-link" data-category="world" id="nav-world">World</button>
+                <button class="nav-link" data-category="business" id="nav-business">Business</button>
+                <button class="nav-link" data-category="technology" id="nav-technology">Technology</button>
+                <button class="nav-link" data-category="entertainment" id="nav-entertainment">Entertainment</button>
+                <button class="nav-link" data-category="sports" id="nav-sports">Sports</button>
+                <button class="nav-link" data-category="science" id="nav-science">Science</button>
+                <button class="nav-link" data-category="health" id="nav-health">Health</button>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box" id="searchBox">
+                    <input type="text" placeholder="Search news..." id="searchInput" autocomplete="off">
+                    <button class="search-btn" id="searchBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.35-4.35" />
+                        </svg>
+                    </button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero / Featured News -->
+    <section class="hero-section" id="heroSection">
+        <div class="container">
+            <div class="hero-grid" id="heroGrid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="container stats-inner">
+            <div class="stat-item">
+                <span class="stat-number" id="totalArticles">0</span>
+                <span class="stat-label">Articles Today</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="totalSources">0</span>
+                <span class="stat-label">Sources</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="lastUpdated">--:--</span>
+                <span class="stat-label">Last Updated</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="currentCategory">General</span>
+                <span class="stat-label">Category</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main News Grid -->
+    <main class="main-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" id="sectionTitle">
+                    <span class="title-accent"></span>
+                    Latest Headlines
+                </h2>
+                <div class="view-toggles">
+                    <button class="view-btn active" id="gridViewBtn" title="Grid view">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="3" y="3" width="7" height="7" rx="1" />
+                            <rect x="14" y="3" width="7" height="7" rx="1" />
+                            <rect x="3" y="14" width="7" height="7" rx="1" />
+                            <rect x="14" y="14" width="7" height="7" rx="1" />
+                        </svg>
+                    </button>
+                    <button class="view-btn" id="listViewBtn" title="List view">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="3" y="4" width="18" height="4" rx="1" />
+                            <rect x="3" y="10" width="18" height="4" rx="1" />
+                            <rect x="3" y="16" width="18" height="4" rx="1" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading Skeleton -->
+            <div class="loading-container" id="loadingContainer">
+                <div class="skeleton-grid">
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-text"></div>
+                        <div class="skeleton-text short"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-text"></div>
+                        <div class="skeleton-text short"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-text"></div>
+                        <div class="skeleton-text short"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-text"></div>
+                        <div class="skeleton-text short"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-text"></div>
+                        <div class="skeleton-text short"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-text"></div>
+                        <div class="skeleton-text short"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Grid -->
+            <div class="news-grid" id="newsGrid">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more-container" id="loadMoreContainer" style="display:none;">
+                <button class="load-more-btn" id="loadMoreBtn">
+                    <span>Load More Stories</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12l7 7 7-7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-state" id="errorState" style="display:none;">
+                <div class="error-icon">📡</div>
+                <h3>Couldn't load the news</h3>
+                <p>Please check your connection or try again later.</p>
+                <button class="retry-btn" id="retryBtn">Retry</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">Pulse<span>News</span></span>
+                </div>
+                <p class="footer-tagline">Your daily pulse on the world's biggest stories.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Categories</h4>
+                    <a href="#" data-category="general">General</a>
+                    <a href="#" data-category="business">Business</a>
+                    <a href="#" data-category="technology">Technology</a>
+                    <a href="#" data-category="science">Science</a>
+                </div>
+                <div class="footer-col">
+                    <h4>More</h4>
+                    <a href="#" data-category="sports">Sports</a>
+                    <a href="#" data-category="entertainment">Entertainment</a>
+                    <a href="#" data-category="health">Health</a>
+                    <a href="#" data-category="world">World</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PulseNews. Powered by GNews API. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll To Top -->
+    <button class="scroll-top" id="scrollTopBtn" title="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+    </button>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
