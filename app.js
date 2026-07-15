@@ -7,9 +7,9 @@
 
     // ── Configuration ──
     const CONFIG = {
-        // GNews API
-        API_BASE: 'https://gnews.io/api/v4',
-        API_KEY: 'e9f91bea0670224ef2d00358e335dc5a',
+        // NewsAPI.org
+        API_BASE: 'https://newsapi.org/v2',
+        API_KEY: '8978511fa99345df8874cede50c83294',
         MAX_ARTICLES: 30,
         ARTICLES_PER_PAGE: 9,
         PLACEHOLDER_IMG: 'https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=800&q=80',
@@ -302,11 +302,11 @@
         try {
             let url;
             if (query) {
-                url = `${CONFIG.API_BASE}/search?q=${encodeURIComponent(query)}&lang=en&max=${CONFIG.MAX_ARTICLES}&apikey=${CONFIG.API_KEY}`;
+                url = `${CONFIG.API_BASE}/everything?q=${encodeURIComponent(query)}&language=en&pageSize=${CONFIG.MAX_ARTICLES}&apiKey=${CONFIG.API_KEY}`;
             } else {
-                const topicMap = {
-                    general: 'breaking-news',
-                    world: 'world',
+                const categoryMap = {
+                    general: 'general',
+                    world: 'general',
                     business: 'business',
                     technology: 'technology',
                     entertainment: 'entertainment',
@@ -314,8 +314,8 @@
                     science: 'science',
                     health: 'health',
                 };
-                const topic = topicMap[category] || 'breaking-news';
-                url = `${CONFIG.API_BASE}/top-headlines?topic=${topic}&lang=en&max=${CONFIG.MAX_ARTICLES}&apikey=${CONFIG.API_KEY}`;
+                const cat = categoryMap[category] || 'general';
+                url = `${CONFIG.API_BASE}/top-headlines?category=${cat}&language=en&country=us&pageSize=${CONFIG.MAX_ARTICLES}&apiKey=${CONFIG.API_KEY}`;
             }
 
             const res = await fetch(url);
