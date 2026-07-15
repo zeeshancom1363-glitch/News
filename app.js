@@ -7,9 +7,9 @@
 
     // ── Configuration ──
     const CONFIG = {
-        // NewsAPI.org
-        API_BASE: 'https://newsapi.org/v2',
-        API_KEY: '8978511fa99345df8874cede50c83294',
+        // Mediastack API
+        API_BASE: 'https://api.mediastack.com/v1',
+        API_KEY: 'e9f91bea0670224ef2d00358e335dc5a',
         MAX_ARTICLES: 30,
         ARTICLES_PER_PAGE: 9,
         PLACEHOLDER_IMG: 'https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=800&q=80',
@@ -302,27 +302,24 @@
         try {
             let url;
             if (query) {
-                url = `${CONFIG.API_BASE}/everything?q=${encodeURIComponent(query)}&language=en&pageSize=${CONFIG.MAX_ARTICLES}&apiKey=${CONFIG.API_KEY}`;
+                url = `${CONFIG.API_BASE}/news?keywords=${encodeURIComponent(query)}&languages=en&limit=${CONFIG.MAX_ARTICLES}&access_key=${CONFIG.API_KEY}`;
             } else {
-                const categoryMap = {
-                    general: 'general',
-                    world: 'general',
-                    business: 'business',
-                    technology: 'technology',
-                    entertainment: 'entertainment',
-                    sports: 'sports',
-                    science: 'science',
-                    health: 'health',
-                };
-                const cat = categoryMap[category] || 'general';
-                url = `${CONFIG.API_BASE}/top-headlines?category=${cat}&language=en&country=us&pageSize=${CONFIG.MAX_ARTICLES}&apiKey=${CONFIG.API_KEY}`;
+                url = `${CONFIG.API_BASE}/news?categories=${category === 'world' ? 'general' : category}&languages=en&limit=${CONFIG.MAX_ARTICLES}&access_key=${CONFIG.API_KEY}`;
             }
 
             const res = await fetch(url);
             if (!res.ok) throw new Error(`API Error: ${res.status}`);
             const data = await res.json();
 
-            state.articles = data.articles || [];
+            // Map Mediastack response to our expected article format
+            state.articles = (data.data || []).map(a => ({
+                title: a.title,
+                description: a.description,
+                url: a.url,
+                image: a.image,
+                publishedAt: a.published_at,
+                source: { name: a.source }
+            }));
             state.displayedCount = 0;
             state.isLoading = false;
 
