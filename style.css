@@ -4,36 +4,36 @@
 
 /* === CSS Custom Properties === */
 :root {
-    /* Dark theme (default) */
+    /* Dark theme (default) - Black & White */
     --bg-primary: #000000;
-    --bg-secondary: #141414;
-    --bg-card: #181818;
-    --bg-card-hover: #262626;
-    --bg-glass: rgba(20, 20, 20, 0.85);
-    --bg-ticker: linear-gradient(90deg, #E50914, #b9090b);
-    --bg-accent-gradient: linear-gradient(135deg, #E50914, #b9090b, #ff4c57);
+    --bg-secondary: #0d0d0d;
+    --bg-card: #121212;
+    --bg-card-hover: #1c1c1c;
+    --bg-glass: rgba(10, 10, 10, 0.85);
+    --bg-ticker: #121212;
+    --bg-accent-gradient: linear-gradient(135deg, #ffffff, #888888, #ffffff);
     --bg-hero-overlay: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.95) 100%);
 
     --text-primary: #ffffff;
-    --text-secondary: #b3b3b3;
-    --text-muted: #808080;
-    --text-accent: #E50914;
-    --text-on-accent: #ffffff;
+    --text-secondary: #a3a3a3;
+    --text-muted: #666666;
+    --text-accent: #ffffff;
+    --text-on-accent: #000000;
 
-    --border-color: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(229, 9, 20, 0.2);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-hover: rgba(255, 255, 255, 0.35);
 
-    --accent-primary: #E50914;
-    --accent-secondary: #b9090b;
-    --accent-glow: rgba(229, 9, 20, 0.3);
-    --accent-red: #E50914;
-    --accent-green: #22c55e;
-    --accent-blue: #3b82f6;
+    --accent-primary: #ffffff;
+    --accent-secondary: #a3a3a3;
+    --accent-glow: rgba(255, 255, 255, 0.15);
+    --accent-red: #ffffff;
+    --accent-green: #ffffff;
+    --accent-blue: #ffffff;
 
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.7);
     --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.8);
-    --shadow-glow: 0 0 30px rgba(229, 9, 20, 0.2);
+    --shadow-glow: 0 0 35px rgba(255, 255, 255, 0.15);
 
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -54,25 +54,33 @@
 
 /* Light theme */
 [data-theme="light"] {
-    --bg-primary: #f8fafc;
-    --bg-secondary: #ffffff;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
     --bg-card: #ffffff;
-    --bg-card-hover: #f1f5f9;
+    --bg-card-hover: #ececec;
     --bg-glass: rgba(255, 255, 255, 0.9);
-    --bg-hero-overlay: linear-gradient(180deg, transparent 0%, rgba(248, 250, 252, 0.5) 50%, rgba(248, 250, 252, 0.95) 100%);
+    --bg-hero-overlay: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.95) 100%);
 
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
-    --text-accent: #E50914;
+    --text-primary: #000000;
+    --text-secondary: #444444;
+    --text-muted: #888888;
+    --text-accent: #000000;
+    --text-on-accent: #ffffff;
 
-    --border-color: rgba(15, 23, 42, 0.08);
-    --border-hover: rgba(15, 23, 42, 0.15);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --border-hover: rgba(0, 0, 0, 0.35);
 
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --accent-primary: #000000;
+    --accent-secondary: #444444;
+    --accent-glow: rgba(0, 0, 0, 0.15);
+    --accent-red: #000000;
+    --accent-green: #000000;
+    --accent-blue: #000000;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
-    --shadow-glow: 0 0 30px rgba(229, 9, 20, 0.1);
+    --shadow-glow: 0 0 35px rgba(0, 0, 0, 0.08);
 }
 
 
@@ -1122,7 +1130,7 @@ img {
     max-height: 85vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: var(--shadow-lg), 0 0 40px rgba(229, 9, 20, 0.15);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
     animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -1222,17 +1230,17 @@ img {
     display: inline-block;
     padding: 12px 24px;
     background: var(--bg-accent-gradient);
-    color: #fff;
+    color: var(--text-on-accent);
     font-weight: 600;
     font-size: 13px;
     border-radius: var(--radius-xl);
-    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+    box-shadow: var(--shadow-glow);
     transition: all var(--transition-normal);
 }
 
 .original-link-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.45);
+    box-shadow: var(--shadow-glow);
 }
 
 @media (max-width: 768px) {
