@@ -364,7 +364,7 @@
         }
 
         DOM.heroGrid.innerHTML = heroArticles.map((article, i) => `
-            <a href="${escapeHtml(article.url)}" data-index="${i}" class="hero-card" style="animation-delay: ${i * 0.15}s">
+            <a href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer" class="hero-card" style="animation-delay: ${i * 0.15}s">
                 <img class="hero-img" src="${article.image || article.urlToImage || CONFIG.PLACEHOLDER_IMG}" alt="${escapeHtml(article.title)}" loading="${i === 0 ? 'eager' : 'lazy'}" onerror="this.src='${CONFIG.PLACEHOLDER_IMG}'">
                 <div class="hero-overlay">
                     <span class="hero-category">${escapeHtml(article.source?.name || 'News')}</span>
@@ -393,7 +393,8 @@
         pageArticles.forEach((article, i) => {
             const card = document.createElement('a');
             card.href = article.url;
-            card.dataset.index = start + i;
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
             card.className = 'news-card';
             card.style.animationDelay = `${i * 0.08}s`;
 
@@ -587,52 +588,6 @@
             lastScrollY = scrollY;
         }, { passive: true });
 
-        // Open article modal on card click
-        function openArticle(index) {
-            const article = state.articles[index];
-            if (!article) return;
-
-            DOM.modalImg.src = article.image || article.urlToImage || CONFIG.PLACEHOLDER_IMG;
-            DOM.modalImg.onerror = () => { DOM.modalImg.src = CONFIG.PLACEHOLDER_IMG; };
-            DOM.modalSource.textContent = article.source?.name || 'Unknown';
-            DOM.modalTime.textContent = timeAgo(article.publishedAt);
-            DOM.modalTitle.textContent = article.title;
-            DOM.modalContent.innerHTML = `<p style="font-size: 16px; line-height: 1.8; margin-bottom: 20px;">${escapeHtml(article.description || 'No additional content details available for this story.')}</p>
-            <p style="color: var(--text-secondary); font-size: 14px;">Stay informed with real-time news updates across all major sectors. Subscribe to our daily briefing for more premium details.</p>`;
-            DOM.modalOriginalLink.href = article.url;
-
-            DOM.articleModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Disable page scrolling
-        }
-
-        function closeArticle() {
-            DOM.articleModal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-
-        // Delegate click handlers
-        DOM.heroGrid.addEventListener('click', (e) => {
-            const card = e.target.closest('.hero-card');
-            if (card) {
-                e.preventDefault();
-                const index = parseInt(card.dataset.index);
-                openArticle(index);
-            }
-        });
-
-        DOM.newsGrid.addEventListener('click', (e) => {
-            const card = e.target.closest('.news-card');
-            if (card) {
-                e.preventDefault();
-                const index = parseInt(card.dataset.index);
-                openArticle(index);
-            }
-        });
-
-        DOM.closeArticleModal.addEventListener('click', closeArticle);
-        DOM.articleModal.addEventListener('click', (e) => {
-            if (e.target === DOM.articleModal) closeArticle();
-        });
     }
 
 
